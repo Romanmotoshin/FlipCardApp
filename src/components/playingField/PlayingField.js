@@ -1,6 +1,7 @@
 import React, {useState, useMemo, useEffect} from 'react';
 import GameCard from '../gameCard/GameCard';
 import HeadMenu from '../headMenu/HeadMenu';
+import LoseMenu from '../loseMenu/LoseMenu';
 import shuffleCards from '../shuffleCards/shuffleCards'
 
 
@@ -11,11 +12,18 @@ const PlayingField = (props) => {
     const {arrayCards} = props
 
     const [attempts, setAttempts] = useState(null)
+    const [loseMenu, setLoseMenu] = useState(false)
     const [matchCard, setMatchCard] = useState(null)
     const [arr, setArr] = useState([])
     const [fieldSizeClass, setFieldClass] = useState(null)
     const [openedCardsStatus, setOpenedCardsStatus] = useState(true)
 
+
+    useEffect(() => {
+        if (attempts === 0){
+            setLoseMenu(true)
+        } 
+    }, [attempts])
 
     useEffect(() => {
         switch (newArrayCards.length) {
@@ -39,6 +47,10 @@ const PlayingField = (props) => {
                 setFieldClass(null)
         }
     }, [])
+
+    const closeWindow = () => {
+        setLoseMenu(false)
+    }
 
     const changeOpenedCardStatus = () => {
         setOpenedCardsStatus(true)
@@ -83,6 +95,7 @@ const PlayingField = (props) => {
             <div className={`field__items ${fieldSizeClass}`} >
                 {elements}
             </div>
+            {loseMenu ? <LoseMenu closeWindow={closeWindow}/> : null}
         </div>
     )
 }

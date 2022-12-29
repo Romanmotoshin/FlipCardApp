@@ -1,7 +1,8 @@
 import PlayingField from "../playingField/PlayingField";
 import MainMenu from "../mainMenu/MainMenu";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ChooseDifficultMenu from "../chooseDifficultMenu/ChooseDifficultMenu";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { faSquare, faSquareXmark, faCircle, faStar, faPhone, faPaperclip, faUmbrella, faHeart, faEnvelope, faBomb, faMusic, faHouse, faBolt, faGift, faCar, faBell, faPlane, faTruck, faTree, faWifi, faBicycle, faSnowflake, faFish, faUserSecret, faFlag, faExclamation, faPause, faShower, faHammer, faWrench, faMedal, faCrown } from '@fortawesome/free-solid-svg-icons'
 
 import './app.scss'
