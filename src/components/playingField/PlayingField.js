@@ -1,52 +1,90 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import GameCard from '../gameCard/GameCard';
+import HeadMenu from '../headMenu/HeadMenu';
 import shuffleCards from '../shuffleCards/shuffleCards'
-import { faSquare, faSquareXmark } from '@fortawesome/free-solid-svg-icons'
+
 
 import './playingField.scss'
 
-const PlayingField = () => {
+const PlayingField = (props) => {
 
-    const [openedCards, setOpenedCards] = useState(0)
-    const [compCards, setCompCards] = useState(null)
+    const {arrayCards} = props
 
-    const compareCard = (card) => {
-        if (!compCards) {
-            setCompCards(card)
-            return false
-        } else {
-            if (compCards === card) {
-                setCompCards(null)
-                return true
-            } else {
-                setCompCards(null)
-                return false
-            }
+    const [attempts, setAttempts] = useState(null)
+    const [matchCard, setMatchCard] = useState(null)
+    const [arr, setArr] = useState([])
+    const [fieldSizeClass, setFieldClass] = useState(null)
+    const [openedCardsStatus, setOpenedCardsStatus] = useState(true)
+
+
+    useEffect(() => {
+        switch (newArrayCards.length) {
+            case 4:
+                setFieldClass('field__items_two')
+                setAttempts(3)
+                break
+            case 16:
+                setFieldClass('field__items_four')
+                setAttempts(10)
+                break
+            case 36:
+                setFieldClass('field__items_six')
+                setAttempts(50)
+                break
+            case 64:
+                setFieldClass('field__items_eight')
+                setAttempts(99)
+                break
+            default:
+                setFieldClass(null)
         }
+    }, [])
+
+    const changeOpenedCardStatus = () => {
+        setOpenedCardsStatus(true)
     }
 
-    const addOpenedCard = () => {
-        setOpenedCards(openedCards => openedCards + 1)
+    const addNewCard = (newCard) => { 
+        if (matchCard) {
+            if (matchCard === newCard) {
+                setArr([...arr, newCard])
+                setMatchCard(null)
+                setOpenedCardsStatus(true)
+            } else {
+                setMatchCard(null)
+                setOpenedCardsStatus(false)
+            } 
+        setAttempts(attempts => attempts - 1)
+        } else {
+            setMatchCard(newCard)
+        }  
     }
 
-    const removeOpenedCard = () => {
-        setOpenedCards(0)
-    }
-
-    const arrayCards = [faSquare, faSquareXmark]
+    
     const newArrayCards = useMemo(() => shuffleCards([...arrayCards, ...arrayCards]), [])
 
     const elements = newArrayCards.map((item, i) => {
-        return <GameCard key={i} content={item} compareCard={compareCard} addOpenedCard={addOpenedCard} removeOpenedCard={removeOpenedCard} openedCards={openedCards}/>
+        return (
+                <GameCard 
+                    key={i} 
+                    arr={arr} 
+                    content={item} 
+                    addNewCard={addNewCard} 
+                    attempts={attempts}
+                    openedCardsStatus={openedCardsStatus}
+                    changeOpenedCardStatus={changeOpenedCardStatus}
+                    />
+        )
     })
 
     return (
         <div className='field'>
-            <div className="field__items">
+            <HeadMenu attempts={attempts} fieldSize={Math.sqrt(newArrayCards.length)} />
+            <div className={`field__items ${fieldSizeClass}`} >
                 {elements}
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default PlayingField;

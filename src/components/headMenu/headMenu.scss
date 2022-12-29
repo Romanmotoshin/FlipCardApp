@@ -1,0 +1,30 @@
+.headmenu {
+    height: 5vh;
+    position: relative;
+    .gachilink {
+        position: absolute;
+        display: block;
+        width: 5px;
+        height: 5px;
+        color:rgb(186, 200, 35);
+        a {
+            text-decoration: none;
+            color:rgb(186, 200, 35)
+        }
+    }
+    &__items {
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgb(186, 200, 35);
+    }
+    &__item {
+        font-size: 25px;
+        line-height: 25px;
+        color: black;
+        }
+    a {
+        text-decoration: none;
+    }
+}

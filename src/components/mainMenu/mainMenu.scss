@@ -1,0 +1,33 @@
+.main-menu {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(25, 74, 221, 0.613);
+    padding: 4% 0;
+    &__items {
+        width: 90%;
+        height: 100%;
+        display: grid;
+        margin: auto;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+    &__item {
+        background-color: rgb(15, 179, 89);
+        border: 2px solid rgb(163, 208, 213);
+    }
+    &__special {
+        background-color: rgba(25, 74, 221, 0.613);
+        border: 2px solid rgb(163, 208, 213);
+        grid-column: 2 / 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px;
+        line-height: 100px;
+        text-shadow: 3px -3px 5px rgba(0, 0, 0, 0.355);
+    }
+    &__link {
+        text-decoration: none;
+        color: black;
+    }
+}
