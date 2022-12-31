@@ -22,23 +22,23 @@ const App = () => {
             element: <MainMenu/>,
         },
         {
-            path: "/difficult",
+            path: "difficult",
             element: <ChooseDifficultMenu/>,
         },
         {
-            path: "/difficult/2x2",
+            path: "2x2",
             element: <PlayingField arrayCards={icons.two}/>,
         },
         {
-            path: "/difficult/4x4",
+            path: "4x4",
             element: <PlayingField arrayCards={icons.four}/>,
         },
         {
-            path: "/difficult/6x6",
+            path: "6x6",
             element: <PlayingField arrayCards={icons.six}/>,
         },
         {
-            path: "/difficult/8x8",
+            path: "8x8",
             element: <PlayingField arrayCards={icons.eight}/>,
         },
     ])
