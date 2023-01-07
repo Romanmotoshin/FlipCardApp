@@ -2,12 +2,20 @@ import { Link } from "react-router-dom";
 
 import './loseMenu.scss'
 
-const LoseMenu = ({closeWindow, difficultLink, repeatTry}) => {
+const LoseMenu = ({closeWindow, difficultLink, repeatTry, victory, attempts}) => {
+
+    let gameOverText = ''
+    if (attempts === 0 && !victory) {
+        gameOverText = "Поражение"
+    } else {
+        gameOverText = "Победа"
+    }
 
     return (
         <div className="lose-menu">
             <div onClick={() => closeWindow()} className="lose-menu__close"></div>
             <div className="lose-menu__links">
+                <h2 className="lose-menu__text">{gameOverText}</h2>
                 <Link to={`/`} className="lose-menu__link">Главное меню</Link>
                 <Link to={`/difficult`} className="lose-menu__link">Выбрать другую сложность</Link>
                 {difficultLink.up ? <Link to={difficultLink.up} className="lose-menu__link">Повысить сложность на один</Link> : null}

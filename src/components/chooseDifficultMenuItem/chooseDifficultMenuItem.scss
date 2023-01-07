@@ -1,0 +1,50 @@
+.difficult-menu__item {
+    background-color: rgba(255, 128, 102, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    font-size: 100px;
+    line-height: 100px;
+    text-shadow: 3px -3px 5px rgba(0, 0, 0, 0.355);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    :hover {
+        background-color: #662bc5;
+        border-radius: 25px;
+        transition: background-color 1s;
+        .left-rotate {
+            left: 10%;
+            transform: rotate(-4turn) scale(2);
+        }
+        .right-rotate {
+            right: 10%;
+            transform: rotate(4turn) scale(2);
+        }
+    }
+}
+
+.difficult-menu__link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    color: black;
+    span {
+        display: block;
+        margin: 0 auto;
+    }
+    .left-rotate, .right-rotate {
+        position: absolute; 
+        transition: all 1s;
+        margin-bottom: 10px;
+    }
+    .left-rotate {
+        left: 45%;
+    }
+    .right-rotate {
+        right: 45%;
+    }
+}
