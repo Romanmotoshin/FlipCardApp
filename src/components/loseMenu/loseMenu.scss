@@ -37,11 +37,6 @@
         height: 50px;
         top: 10vh;
         right: 7vw;
-        &:hover {
-            &::before, &::after {
-                background-color: pink;
-            }
-        }
         &::before, &::after {
             position: absolute;
             content: '';
@@ -55,6 +50,11 @@
         }
         &::after {
             transform: translateY(-3px) rotate(-45deg);
+        }
+        &:hover {
+            &::before, &::after {
+                background-color: pink;
+            }
         }
     }
 }

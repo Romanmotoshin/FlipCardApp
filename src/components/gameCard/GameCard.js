@@ -5,19 +5,19 @@ import './gameCard.scss'
 
 
 
-const GameCard = ({content, addNewCard, attempts, arr, openedCardsStatus, changeOpenedCardStatus, loseMenu, id}) => {
+const GameCard = ({content, addNewCard, attempts, guessedCards, openedCardsStatus, allowOpenedCardStatus, loseMenu, id, transDuration, startAnimation}) => {
 
-    const [transDuration, setTransDuration] = useState(null)
     const [flip, setFlip] = useState(false)
 
     useEffect(() => {
-        if (arr.length === 0) {
+        if (guessedCards.length === 0) {
             setFlip(false)
         }
-    }, [arr])
+    }, [guessedCards])
 
     useEffect(() => {
         if (!loseMenu && attempts === 0) {
+            startAnimation()
             setTimeout(() => {
                 setFlip(true)
             }, id * 200)
@@ -25,19 +25,19 @@ const GameCard = ({content, addNewCard, attempts, arr, openedCardsStatus, change
     }, [loseMenu])
 
     useEffect(() => {
-        if (flip && arr && !(arr.indexOf(content.iconName) > -1)) {
+        if (flip && guessedCards && !(guessedCards.indexOf(content.iconName) > -1)) {
             setTimeout(() => {
                 setFlip(false)
                 setTimeout(() => {
-                    changeOpenedCardStatus()
+                    allowOpenedCardStatus()
                 }, 1000)
             }, 1000)
         }
     }, [attempts])
 
-    const changeFlip = (e) => {
-        console.log(e.target)
+    const openCard = (e) => {
         if (e.target.classList.contains('field__item_front') && attempts > 0 && openedCardsStatus && !flip) {
+            startAnimation()
             setFlip(true)
             addNewCard(e.target.getAttribute('data-icon'))
         }
@@ -48,7 +48,7 @@ const GameCard = ({content, addNewCard, attempts, arr, openedCardsStatus, change
 
 
     return (
-        <div className="field__item" onClick={changeFlip}>
+        <div className="field__item" onClick={openCard}>
             <div className="field__item_front" style={{...transDuration, ...clazzFront} } data-icon={content.iconName}>
 
             </div>
