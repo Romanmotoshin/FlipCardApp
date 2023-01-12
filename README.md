@@ -7,3 +7,5 @@ npm start для запуска
 Для внутренности карточек использованы иконки с fontawesome
 
 npm start для запуска приложения
+
+[ссылка на GitHubPages](https://romanmotoshin.github.io/portfolio/Flipcards/)
