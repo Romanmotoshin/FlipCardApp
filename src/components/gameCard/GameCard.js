@@ -1,43 +1,43 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { allowOpen } from '../../store/iconSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './gameCard.scss'
 
 
 
-const GameCard = ({content, addNewCard, attempts, guessedCards, openedCardsStatus, allowOpenedCardStatus, loseMenu, id, transDuration, startAnimation}) => {
+const GameCard = ({content, addNewCard, id }) => {
 
     const [flip, setFlip] = useState(false)
+    const attempts = useSelector(state => state.icons.attempts)
+    const correctIcons = useSelector(state => state.icons.correctIcons)
+    const isAllowOpen = useSelector(state => state.icons.isAllowOpen)
+    const endGame = useSelector(state => state.icons.endGame)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        if (guessedCards.length === 0) {
-            setFlip(false)
-        }
-    }, [guessedCards])
-
-    useEffect(() => {
-        if (!loseMenu && attempts === 0) {
-            startAnimation()
+        if (!endGame && attempts === 0) {
             setTimeout(() => {
                 setFlip(true)
             }, id * 200)
         }
-    }, [loseMenu])
+    }, [endGame])
 
     useEffect(() => {
-        if (flip && guessedCards && !(guessedCards.indexOf(content.iconName) > -1)) {
+        if (flip && !correctIcons.includes(content.iconName)) {
             setTimeout(() => {
                 setFlip(false)
                 setTimeout(() => {
-                    allowOpenedCardStatus()
+                    dispatch(allowOpen())
                 }, 1000)
             }, 1000)
-        }
+        } 
     }, [attempts])
 
     const openCard = (e) => {
-        if (e.target.classList.contains('field__item_front') && attempts > 0 && openedCardsStatus && !flip) {
-            startAnimation()
+        if (attempts > 0 && isAllowOpen && !flip) {
             setFlip(true)
             addNewCard(e.target.getAttribute('data-icon'))
         }
@@ -49,10 +49,10 @@ const GameCard = ({content, addNewCard, attempts, guessedCards, openedCardsStatu
 
     return (
         <div className="field__item" onClick={openCard}>
-            <div className="field__item_front" style={{...transDuration, ...clazzFront} } data-icon={content.iconName}>
+            <div className="field__item_front" style={clazzFront} data-icon={content.iconName}>
 
             </div>
-            <div className="field__item_back" style={{...transDuration, ...clazzBack}}>
+            <div className="field__item_back" style={clazzBack}>
                 <FontAwesomeIcon icon={content} className='field__icon'/>
             </div>
         </div>
