@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { allowOpen } from '../../store/iconSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import './gameCard.scss'
 
@@ -10,30 +10,32 @@ import './gameCard.scss'
 const GameCard = ({content, addNewCard, id }) => {
 
     const [flip, setFlip] = useState(false)
-    const attempts = useSelector(state => state.icons.attempts)
-    const correctIcons = useSelector(state => state.icons.correctIcons)
-    const isAllowOpen = useSelector(state => state.icons.isAllowOpen)
-    const endGame = useSelector(state => state.icons.endGame)
+    const attempts = useSelector(state => state.game.attempts)
+    const correctIcons = useSelector(state => state.game.correctIcons)
+    const isAllowOpen = useSelector(state => state.game.isAllowOpen)
+    const endGame = useSelector(state => state.game.endGame)
+    const visible = useSelector(state => state.game.visible)
 
-    const dispatch = useDispatch()
-
+   
     useEffect(() => {
-        if (!endGame && attempts === 0) {
+        if (!flip && !endGame && attempts === 0) {
             setTimeout(() => {
                 setFlip(true)
             }, id * 200)
+        } else if (!endGame && flip) {
+            setFlip(false)
         }
-    }, [endGame])
+    }, [endGame, visible])
 
     useEffect(() => {
         if (flip && !correctIcons.includes(content.iconName)) {
             setTimeout(() => {
                 setFlip(false)
-                setTimeout(() => {
-                    dispatch(allowOpen())
-                }, 1000)
             }, 1000)
         } 
+        if (!visible) {
+            setFlip(false)
+        }
     }, [attempts])
 
     const openCard = (e) => {
@@ -53,7 +55,7 @@ const GameCard = ({content, addNewCard, id }) => {
 
             </div>
             <div className="field__item_back" style={clazzBack}>
-                <FontAwesomeIcon icon={content} className='field__icon'/>
+                {visible ? <FontAwesomeIcon icon={content} className='field__icon'/> : null}
             </div>
         </div>
     )

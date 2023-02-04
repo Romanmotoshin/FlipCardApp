@@ -9,21 +9,42 @@ const initialState = {
     attempts: null,
     isAllowOpen: true,
     size: null,
-    endGame: false
+    endGame: false,
+    visible: true,
 
 }
 
-const iconSlice = createSlice({
-    name: 'icon',
+export function asyncCloseVisible(size) {
+    return dispatch => {
+        dispatch(createGame(size))
+        dispatch(forbidOpen())
+        dispatch(forbidVisible())
+        setTimeout(() => {
+            dispatch(allowVisible())
+            dispatch(allowOpen())
+        }, 1000)
+    }
+}
+
+export function asyncAllowOpen() {
+    return dispatch => {
+        dispatch(forbidOpen())
+        setTimeout(() => {
+            dispatch(allowOpen())
+        }, 2000)
+    }
+}
+
+const gameSlice = createSlice({
+    name: 'game',
     initialState,
     reducers: {
         createGame(state, action) {
             state.currentIcons = createRandomIcons(state.icons, action.payload)
-            state.attempts = action.payload * 2
+            state.attempts = action.payload ** 2
             state.size = action.payload
             state.correctIcons = []
             state.endGame = false
-            state.isAllowOpen = true
         },
         removeAttempt(state) {
             state.attempts -= 1
@@ -43,10 +64,24 @@ const iconSlice = createSlice({
         closeEndGame(state) {
             state.endGame = false
         },
+        allowVisible(state) {
+            state.visible = true
+        },
+        forbidVisible(state) {
+            state.visible = false
+        }
     }
 })
 
 
-export const { createGame, removeAttempt, allowOpen, forbidOpen, addCorrectIcon, openEndGame, closeEndGame } = iconSlice.actions
+export const { createGame, 
+               removeAttempt, 
+               allowOpen, 
+               forbidOpen, 
+               addCorrectIcon, 
+               openEndGame, 
+               closeEndGame, 
+               allowVisible, 
+               forbidVisible } = gameSlice.actions
 
-export default iconSlice.reducer 
+export default gameSlice.reducer 

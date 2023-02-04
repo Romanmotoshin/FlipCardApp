@@ -1,7 +1,6 @@
 .difficult-menu__item {
     background-color: rgba(255, 128, 102, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 25px;
     font-size: 100px;
     line-height: 100px;
     text-shadow: 3px -3px 5px rgba(0, 0, 0, 0.355);
@@ -12,7 +11,6 @@
     position: relative;
     :hover {
         background-color: #662bc5;
-        border-radius: 25px;
         transition: background-color 1s;
         .left-rotate {
             left: 10%;

@@ -1,20 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import GameCard from '../gameCard/GameCard';
 import HeadMenu from '../headMenu/HeadMenu';
 import LoseMenu from '../loseMenu/LoseMenu';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeAttempt, allowOpen, forbidOpen, addCorrectIcon, openEndGame } from '../../store/iconSlice';
+import { removeAttempt, allowOpen, addCorrectIcon, openEndGame, asyncAllowOpen } from '../../store/gameSlice';
 
 
 import './playingField.scss'
 
 const PlayingField = () => {
 
-    const arrayCards = useSelector(state => state.icons.currentIcons)
-    const attempts = useSelector(state => state.icons.attempts)
-    const size = useSelector(state => state.icons.size)
-    const endGame = useSelector(state => state.icons.endGame)
-    const correctIcons = useSelector(state => state.icons.correctIcons)
+    const arrayCards = useSelector(state => state.game.currentIcons)
+    const attempts = useSelector(state => state.game.attempts)
+    const size = useSelector(state => state.game.size)
+    const endGame = useSelector(state => state.game.endGame)
+    const correctIcons = useSelector(state => state.game.correctIcons)
 
     const dispatch = useDispatch()
     
@@ -32,7 +33,7 @@ const PlayingField = () => {
                 dispatch(allowOpen())
                 dispatch(addCorrectIcon(newCard))
             } else {
-                dispatch(forbidOpen())
+                dispatch(asyncAllowOpen())
             } 
         setMatchCard(null)
         dispatch(removeAttempt())
@@ -54,7 +55,7 @@ const PlayingField = () => {
 
     return (
         <div className='field'>
-            <HeadMenu attempts={attempts} fieldSize={size} />
+            <HeadMenu />
             <div className={`field__items field__items_${size}`} >
                 {elements}
             </div>

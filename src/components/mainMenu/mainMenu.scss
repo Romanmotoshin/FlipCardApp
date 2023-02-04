@@ -9,7 +9,7 @@
         height: 100%;
         display: grid;
         margin: auto;
-        gap: 10px;
+        gap: 5px;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(5, 1fr);
     }
@@ -22,7 +22,6 @@
             height: 100%;
             backface-visibility:hidden;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 40px;
         }
         &_front {   
             background-color:rgba(75, 68, 83, 0.7);

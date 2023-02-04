@@ -11,6 +11,9 @@
         font-size: 25px;
         line-height: 25px;
         color: #27685F;
+        &:hover {
+            cursor: pointer;
+        }
     }
     &__item_link {
         &:hover {

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom';
-import { createGame } from '../../store/iconSlice';
+import { createGame } from '../../store/gameSlice';
 
 import './chooseDifficultMenuItem.scss'
 
