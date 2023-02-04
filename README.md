@@ -1,6 +1,6 @@
 # Игра Переворот карточек
 
-Анимация на CSS, ReactRouter v6.4, React hooks
+Анимация на CSS, ReactRouter v6.4, React hooks, Redux Toolkit
 
 npm start для запуска
 
